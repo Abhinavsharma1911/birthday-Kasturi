@@ -1,1 +1,329 @@
-# birthday-Kasturi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happiest Birthday Kasturi 🌌</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 200vh;
+      overflow-x: hidden;
+      background: radial-gradient(ellipse at bottom, #070f2b 0%, #02010f 70%);
+      color: white;
+    }
+
+    /* SKY */
+    .sky {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    /* SUPER DENSE STARS */
+    .stars {
+      position: absolute;
+      width: 400%;
+      height: 400%;
+      background:
+        radial-gradient(1px 1px at 5% 10%, white, transparent),
+        radial-gradient(1px 1px at 10% 30%, #ff6b6b, transparent),
+        radial-gradient(1px 1px at 20% 80%, #74b9ff, transparent),
+        radial-gradient(1px 1px at 30% 40%, #fd79a8, transparent),
+        radial-gradient(1px 1px at 40% 60%, white, transparent),
+        radial-gradient(1px 1px at 50% 20%, #ff7675, transparent),
+        radial-gradient(1px 1px at 60% 70%, #a29bfe, transparent),
+        radial-gradient(1px 1px at 70% 30%, white, transparent),
+        radial-gradient(1px 1px at 80% 50%, #fab1a0, transparent),
+        radial-gradient(1px 1px at 90% 90%, white, transparent);
+      animation: drift 300s linear infinite;
+      opacity: 0.95;
+    }
+
+    .stars::after {
+      content: '';
+      position: absolute;
+      width: 400%;
+      height: 400%;
+      background:
+        radial-gradient(1px 1px at 15% 15%, white, transparent),
+        radial-gradient(1px 1px at 25% 55%, #ff9ff3, transparent),
+        radial-gradient(1px 1px at 35% 75%, #4dabff, transparent),
+        radial-gradient(1px 1px at 45% 35%, white, transparent),
+        radial-gradient(1px 1px at 55% 65%, #ff6b81, transparent),
+        radial-gradient(1px 1px at 65% 25%, white, transparent),
+        radial-gradient(1px 1px at 75% 85%, #81ecec, transparent);
+      opacity: 0.8;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-2000px); }
+    }
+
+    /* MILKY WAY */
+    .milkyway {
+      position: absolute;
+      width: 180%;
+      height: 55%;
+      top: 10%;
+      left: -40%;
+      background: radial-gradient(ellipse at center,
+        rgba(220,220,255,0.45),
+        rgba(140,140,255,0.25),
+        rgba(80,80,160,0.18),
+        transparent 70%);
+      filter: blur(35px);
+      transform: rotate(-20deg);
+    }
+
+    /* DETAILED MOON */
+    .moon {
+      position: absolute;
+      top: 7%;
+      right: 10%;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, #ffffff, #d9d9d9 60%, #bfbfbf 100%),
+        radial-gradient(circle at 60% 40%, rgba(0,0,0,0.18), transparent 45%),
+        radial-gradient(circle at 40% 70%, rgba(0,0,0,0.14), transparent 50%);
+      box-shadow:
+        0 0 70px rgba(255,255,255,1),
+        0 0 150px rgba(180,180,255,0.5);
+    }
+
+    /* HERO MESSAGE */
+    .message {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 22vh;
+      text-align: center;
+      position: relative;
+      z-index: 10; /* keep button clickable above bridge */
+    }
+
+    .message h1 {
+      font-family: 'Roca One', 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      letter-spacing: 5px;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: 1.8s ease;
+      text-shadow:
+        0 0 30px rgba(255,255,255,1),
+        0 0 70px rgba(160,160,255,0.7);
+    }
+
+    .message p {
+      margin-top: 18px;
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+
+    .surprise-btn {
+      margin-top: 35px;
+      padding: 16px 42px;
+      font-size: 1.15rem;
+      border-radius: 50px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.4s;
+      box-shadow: 0 0 25px rgba(255,255,255,0.5);
+    }
+
+    .surprise-btn:hover {
+      background: white;
+      color: #02010f;
+      box-shadow: 0 0 50px white;
+    }
+
+    /* FIREWORKS */
+    .fireworks {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .rocket {
+      position: absolute;
+      width: 3px;
+      height: 70px;
+      background: linear-gradient(to top, transparent, currentColor);
+      animation: rise 1s ease-out forwards;
+    }
+
+    @keyframes rise { to { transform: translateY(-350px); opacity: 0; } }
+
+    .spark {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: spark 1.6s ease-out forwards;
+    }
+
+    @keyframes spark { to { transform: translate(var(--x), var(--y)); opacity: 0; } }
+
+    /* POEM SECTION */
+    .poem {
+      padding: 120px 12vw 160px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      line-height: 2.2;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 2s ease;
+    }
+
+    .poem.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .poem p {
+      margin-bottom: 32px;
+      text-shadow: 0 0 12px rgba(255,255,255,0.15);
+    }
+
+    /* BRIDGE */
+    .bridge {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 32vh;
+      background: linear-gradient(to top, #000, rgba(0,0,0,0.85), transparent);
+      z-index: 4;
+      pointer-events: none; /* allow clicks to pass through */
+    }
+
+    .bridge::before {
+      content: '';
+      position: absolute;
+      bottom: 38%;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sky">
+    <div class="stars"></div>
+    <div class="milkyway"></div>
+    <div class="moon"></div>
+  </div>
+
+  <div class="fireworks" id="fireworks"></div>
+
+  <section class="message">
+    <h1 id="title">HAPPIEST BIRTHDAYYY<br>KASTURIIIIIII 🥳🎉</h1>
+    <p id="hint">Tap below… the galaxy has something to say ✨</p>
+    <button class="surprise-btn" onclick="launchFireworks()">Tap to Surprise 🎆</button>
+  </section>
+
+  <section class="poem" id="poem">
+    <p>its been 2 years 2 months and 26 days since we met ammai<br>
+    this journey along side you was nothing less than a dream come true<br>
+    and you deserve an award for bearing such idiot like me for this long uk</p>
+
+    <p>wish i could've celebrated today in a huge special moment<br>
+    but its fine if i can atleast bring even a little smile on ur face<br>
+    the moments ive spent alongside you..those unforgettable days<br>
+    and those moments of grief you have struggled on pains bay</p>
+
+    <p>i remember ur tale even before we ever got close<br>
+    i heard you voice before you ever sent me ur first song<br>
+    thinking of all those memories i have of you<br>
+    makes me wonder how much you have grown dear</p>
+
+    <p>from the vaishu who is a master of naughty crimes<br>
+    to the kasturi i see now focusing on reaching her prime<br>
+    you have undergone countless tales in between<br>
+    im glad i could be part of ur tale from ur early teens</p>
+
+    <p>on this day i take a moment to say<br>
+    how much you mean to me through this tapestry of our time<br>
+    how important you have become in this journey of mine<br>
+    the role you are playing as a comrade along our way</p>
+
+    <p>thankyou for being who you are today<br>
+    giving that heartfelt smile even on hardest of days<br>
+    always standing up even after the worst of times<br>
+    the crazy woman with unmatched will power in crimes</p>
+
+    <p>i will forever be the one you can sing ur crazy rhymes<br>
+    the place you can feel safe enough to tear up on heavy times<br>
+    one you can always count on even through any international crimes<br>
+    ALWAYS with you through the thick and thin of every tale you find</p>
+
+    <p>ik you dont like birthdays that much<br>
+    but today i celebrate the day my bestestest friend came into existence<br>
+    today i cherish the day my potti fellow my dearest friend came to life</p>
+  </section>
+
+  <div class="bridge"></div>
+
+  <script>
+    function launchFireworks() {
+      const title = document.getElementById('title');
+      const hint = document.getElementById('hint');
+      const poem = document.getElementById('poem');
+
+      hint.style.display = 'none';
+      title.style.opacity = 1;
+      title.style.transform = 'scale(1)';
+
+      for (let i = 0; i < 10; i++) {
+        setTimeout(createFirework, i * 450);
+      }
+
+      setTimeout(() => {
+        poem.classList.add('visible');
+        poem.scrollIntoView({ behavior: 'smooth' });
+      }, 3000);
+    }
+
+    function createFirework() {
+      const container = document.getElementById('fireworks');
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight * 0.45;
+      const color = `hsl(${Math.random()*360},100%,65%)`;
+
+      const rocket = document.createElement('div');
+      rocket.className = 'rocket';
+      rocket.style.left = x + 'px';
+      rocket.style.top = window.innerHeight + 'px';
+      rocket.style.color = color;
+      container.appendChild(rocket);
+
+      setTimeout(() => {
+        for (let i = 0; i < 40; i++) {
+          const spark = document.createElement('div');
+          spark.className = 'spark';
+          spark.style.left = x + 'px';
+          spark.style.top = y + 'px';
+          spark.style.background = color;
+          spark.style.setProperty('--x', `${Math.cos((i/40)*2*Math.PI)*180}px`);
+          spark.style.setProperty('--y', `${Math.sin((i/40)*2*Math.PI)*180}px`);
+          container.appendChild(spark);
+          setTimeout(() => spark.remove(), 1600);
+        }
+        rocket.remove();
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
